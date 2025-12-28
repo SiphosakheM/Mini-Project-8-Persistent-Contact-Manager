@@ -15,17 +15,17 @@ class Contact:
         return[self.name, self.surname, self.phone, self.email]
     
 def save_all(contacts):
-    with open("contacts.json", "w", encoding="utf-8") as j_file:
+    with open("contacts.json", "w") as j_file:
         json.dump([contact.to_dictionary() for contact in contacts], j_file, indent=4)
         
-    with open("report.csv", "w", newline="", encoding="utf-8") as c_file:
+    with open("report.csv", "w", newline="") as c_file:
         writer = csv.writer(c_file)
         writer.writerow(["name", "surname", "phone", "email"])
         writer.writerows([contact.to_list() for contact in contacts])
         
 def load_from_json():
     try:
-        with open("contacts.json", "r", encoding="utf-8") as f:
+        with open("contacts.json", "r") as f:
             data = json.load(f)
             return [Contact(d["name"], d["surname"], d["phone"], d["email"]) for d in data]
     except (FileNotFoundError, json.JSONDecodeError):
