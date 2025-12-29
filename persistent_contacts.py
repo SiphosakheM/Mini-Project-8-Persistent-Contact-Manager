@@ -31,4 +31,31 @@ def load_from_json():
     except (FileNotFoundError, json.JSONDecodeError):
         return []
 
-contacts = load_from_json()
+def main():
+    contacts = load_from_json()
+    while True:
+        print("1. Add Contact 2. View Contacts 3. Exit ")
+        try:
+            choice = input("select: ")
+            
+            if choice == "1":
+                name = input("Name: ").strip().title()
+                surname = input("Surname: ").strip().title()
+                phone = input("Phone: ").strip()
+                email = input("Email: ").strip()
+                
+                contacts.append(Contact(name, surname, phone, email))
+                save_all(contacts)
+                
+            elif choice == "2":
+                print("\n --- Contact list ---")
+                for item in contacts:
+                    print(f"{item.name}\n {item.surname}\n {item.phone}\n {item.email}")
+            elif choice == "3":
+                print("Exiting the contact manager")
+                break
+        except ValueError:
+            print("incorrect selection")
+        break
+
+main()
